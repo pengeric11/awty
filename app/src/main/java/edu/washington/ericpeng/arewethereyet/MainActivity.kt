@@ -15,6 +15,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
 import java.util.*
@@ -29,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var message : EditText
     private lateinit var phone : EditText
     private lateinit var interval : EditText
+    private lateinit var checkbox : CheckBox
 
     private lateinit var int : Intent
     private lateinit var pIntent : PendingIntent
@@ -45,6 +47,7 @@ class MainActivity : AppCompatActivity() {
         message = findViewById(R.id.editText)
         phone = findViewById(R.id.editTextNum)
         interval = findViewById(R.id.editTextNag)
+        checkbox = findViewById(R.id.checkBox)
 
         message.addTextChangedListener(tw)
         phone.addTextChangedListener(tw)
@@ -70,6 +73,10 @@ class MainActivity : AppCompatActivity() {
                 btn.text = "Stop"
                 int.putExtra("message", mText)
                 int.putExtra("number", pText)
+
+                val audio = checkbox.isChecked
+
+                int.putExtra("audio", audio)
 
                 pIntent = PendingIntent.getBroadcast(applicationContext, 0, int, PendingIntent.FLAG_UPDATE_CURRENT)
 
